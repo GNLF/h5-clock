@@ -1,3 +1,3 @@
 # Vue 3 + Typescript + Vite
 
-使用Vue3-Typescript+vite+Pug+stylus开发的一个翻页时钟
+这是学习Vue3时,使用Vue3-Typescript+Vite+Pug+stylus开发的一个翻页时钟
