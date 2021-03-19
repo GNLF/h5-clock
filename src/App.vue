@@ -1,43 +1,37 @@
 <template lang="pug">
-.lock-screen(:class="{ screenTransform: screenTransform.val }")
+.lock-screen(:class="{ screenTransform: screenTransform }")
   .clock-container.mobile
     .mode
-      flip-item(:total="2" :current="timeArr.val[0]")
-      flip-item(:total="9" :current="timeArr.val[1]")
+      flip-item(:total="2" :current="timeArr[0]")
+      flip-item(:total="9" :current="timeArr[1]")
     .colon
     .mode
-      flip-item(:total="5" :current="timeArr.val[2]")
-      flip-item(:total="9" :current="timeArr.val[3]")
+      flip-item(:total="5" :current="timeArr[2]")
+      flip-item(:total="9" :current="timeArr[3]")
     .colon
     .mode
-      flip-item(:total="5" :current="timeArr.val[4]")
-      flip-item(:total="9" :current="timeArr.val[5]")
-  .date(:class="screenTransform.val ? 'horizontal': 'vertical'")
-    p {{ date.val }}
+      flip-item(:total="5" :current="timeArr[4]")
+      flip-item(:total="9" :current="timeArr[5]")
+  .date(:class="screenTransform ? 'horizontal': 'vertical'")
+    p {{ date }}
 </template>
 
 <script setup lang="ts">
-import { defineComponent, reactive, ref, onBeforeMount, onMounted, computed } from 'vue'
+import type { Ref } from 'vue'
+import { defineComponent, ref, onBeforeMount, onMounted } from 'vue'
 import FlipItem from './components/FlipItem.vue'
 import { getTimeArr, getDate } from './utils/index'
 
-interface TimerArr {
-  val: number[]
-}
-const obj: TimerArr = {
-  val: []
-}
-const timeArr = reactive(obj)
-const screenTransform = reactive({ val: false })
-const date = reactive({ val: '' })
-const weather = reactive({ val: '' })
+const timeArr: Ref<number[]> = ref([])
+const screenTransform: Ref<boolean> = ref(false)
+const date: Ref<string> = ref('')
 
 let timer: number = 0
 const startTimer = (): void => {
   timer = setTimeout(() => {
     stopTimer()
-    timeArr.val = getTimeArr()
-    date.val = getDate(new Date(), '{y}-{m}-{d}')
+    timeArr.value = getTimeArr()
+    date.value = getDate(new Date(), '{y}-{m}-{d}')
     startTimer()
   }, 1000)
 }
@@ -49,10 +43,10 @@ onBeforeMount(() => {
 
 onMounted(() => {
   window.onload = () => {
-    screenTransform.val = window.innerHeight < window.innerWidth
+    screenTransform.value = window.innerHeight < window.innerWidth
   }
   window.onresize = () => {
-    screenTransform.val = window.innerHeight < window.innerWidth
+    screenTransform.value = window.innerHeight < window.innerWidth
   }
 })
 

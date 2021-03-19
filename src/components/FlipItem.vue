@@ -1,7 +1,7 @@
 <template lang="pug">
-.part(:class="{ play: isPlay.val }")
+.part(:class="{ play: isPlay }")
   ul.flip
-    li.item(v-for="(item, key) in total + 1" :key="item" :class="{ active: current === key, before: key === before.val }")
+    li.item(v-for="(item, key) in total + 1" :key="item" :class="{ active: current === key, before: key === before }")
       .up
         .shadow
         .inn {{ key }}
@@ -11,7 +11,8 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, reactive, watch } from 'vue'
+import type { Ref } from 'vue'
+import { defineProps, ref, watch } from 'vue'
 
 const props = defineProps({
   total: {
@@ -23,13 +24,13 @@ const props = defineProps({
     default: -1
   }
 })
-let isPlay: any = reactive({ val: false })
-let before: any = reactive({ val: props.total === props.current ? -1 : props.total })
+let isPlay: Ref<boolean> = ref(false)
+let before: Ref<number> = ref(props.total === props.current ? -1 : props.total)
 
-watch(() => props.current, (current: number, preCurrent?: number): void => {
-  before.val = preCurrent
-  if (!isPlay.val) {
-    isPlay.val = true
+watch(() => props.current, (current: number, preCurrent: number): void => {
+  before.value = preCurrent
+  if (!isPlay.value) {
+    isPlay.value = true
   }
 })
 
