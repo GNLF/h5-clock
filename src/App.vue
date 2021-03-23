@@ -17,16 +17,27 @@
 </template>
 
 <script setup lang="ts">
-import type { Ref } from 'vue'
 import { defineComponent, ref, onBeforeMount, onMounted } from 'vue'
 import FlipItem from './components/FlipItem.vue'
 import { getTimeArr, getDate } from './utils'
 
-const timeArr: Ref<number[]> = ref([])
-const screenTransform: Ref<boolean> = ref(
-  window.innerHeight < window.innerWidth
-)
-const date: Ref<string> = ref('')
+defineComponent({
+  name: 'App',
+  components: {
+    FlipItem
+  }
+})
+
+onBeforeMount(() => {
+  startTimer()
+  window.onresize = () => {
+    screenTransform.value = window.innerHeight < window.innerWidth;
+  }
+})
+
+const timeArr = ref<number[]>([])
+const screenTransform = ref<boolean>(window.innerHeight < window.innerWidth)
+const date = ref<string>('')
 
 let timer: number = 0
 const startTimer = (): void => {
@@ -38,26 +49,11 @@ const startTimer = (): void => {
   }, 1000)
 };
 
-onBeforeMount(() => {
-  startTimer()
-})
-
-onMounted(() => {
-  window.onresize = () => {
-    screenTransform.value = window.innerHeight < window.innerWidth;
-  }
-})
-
 const stopTimer = () => {
   clearTimeout(timer)
 }
 
-defineComponent({
-  name: 'App',
-  components: {
-    FlipItem
-  }
-})
+
 </script>
 
 <style lang="stylus">

@@ -11,7 +11,6 @@
 </template>
 
 <script setup lang="ts">
-import type { Ref } from 'vue';
 import { defineProps, ref, watch } from 'vue';
 
 const props = defineProps({
@@ -24,8 +23,8 @@ const props = defineProps({
     default: -1,
   },
 });
-let isPlay: Ref<boolean> = ref(false);
-let before: Ref<number> = ref(props.total === props.current ? -1 : props.total);
+let isPlay = ref<boolean>(false);
+let before = ref<number>(props.total === props.current ? -1 : props.total);
 
 watch(
   () => props.current,
