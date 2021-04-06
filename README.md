@@ -1,5 +1,3 @@
 # Vue 3 + Typescript + Vite
 
-这是学习Vue3时,使用Vue3-Typescript+Vite+Pug+stylus开发的一个翻页时钟
-
-preview page: [https://gnlf.github.io/flip-clock-h5/](https://gnlf.github.io/flip-clock-h5/)
+这是学习 Vue3 时,使用 Vue3-Typescript+Vite+Pug+stylus 开发的一个翻页时钟
