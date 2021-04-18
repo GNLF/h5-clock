@@ -37,7 +37,7 @@ const startTimer = (): void => {
   timer = setTimeout(() => {
     clearTimeout(timer)
     timeArr.value = getTimeArr()
-    date.value = getDate(new Date(), '{y}-{m}-{d}')
+    date.value = getDate(new Date(), '{y}-{m}-{d} 星期{a}')
     startTimer()
   }, 1000)
 };
